@@ -2,7 +2,9 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
+
 
 //Routes
 const homeRouter = require('./routes/home');
@@ -20,6 +22,9 @@ app.use(sassMiddleware({
     prefix: '/css'
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 //Handlebars setup
 app.engine('hbs',exphbs({extname: '.hbs'}));
